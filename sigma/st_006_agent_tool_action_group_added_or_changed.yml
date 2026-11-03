@@ -1,0 +1,25 @@
+title: 'Agent tool (action group) added or changed'
+id: e7b7ebec-9d5d-5f58-9c9d-1e5d5eda7371
+status: experimental
+description: 'A new or swapped action group lets the agent call attacker code with its own permissions. (Strata ST-006)'
+references:
+    - https://thehackernews.com/2026/03/we-found-eight-attack-vectors-inside.html
+    - https://unit42.paloaltonetworks.com/exploit-of-aws-agentcore-iam-god-mode/
+    - https://github.com/CasimirTerr/Strata
+author: Casimir Terrence
+date: 2026-11-03
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource:
+            - bedrock.amazonaws.com
+            - bedrock-agent.amazonaws.com
+        eventName:
+            - CreateAgentActionGroup
+            - UpdateAgentActionGroup
+    condition: selection
+falsepositives:
+    - 'Shipping a new agent feature.'
+level: high

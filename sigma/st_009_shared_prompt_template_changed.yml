@@ -1,0 +1,26 @@
+title: 'Shared prompt template changed'
+id: e35e8d30-3b88-55c6-98b8-24f4a20b1ce8
+status: experimental
+description: 'One edited prompt template injects instructions into every app that uses it. (Strata ST-009)'
+references:
+    - https://thehackernews.com/2026/03/we-found-eight-attack-vectors-inside.html
+    - https://unit42.paloaltonetworks.com/exploit-of-aws-agentcore-iam-god-mode/
+    - https://github.com/CasimirTerr/Strata
+author: Casimir Terrence
+date: 2026-11-03
+tags:
+    - attack.t1565.001
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource:
+            - bedrock.amazonaws.com
+            - bedrock-agent.amazonaws.com
+        eventName:
+            - UpdatePrompt
+    condition: selection
+falsepositives:
+    - 'Prompt engineers editing templates.'
+level: medium

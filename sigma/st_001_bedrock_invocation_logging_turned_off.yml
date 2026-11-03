@@ -1,0 +1,26 @@
+title: 'Bedrock invocation logging turned off'
+id: b7c8e206-47c6-52ba-a84e-9cc00e81bc9f
+status: experimental
+description: 'Stops recording prompts and responses, which blinds investigations. Attackers do this before abusing models. (Strata ST-001)'
+references:
+    - https://thehackernews.com/2026/03/we-found-eight-attack-vectors-inside.html
+    - https://unit42.paloaltonetworks.com/exploit-of-aws-agentcore-iam-god-mode/
+    - https://github.com/CasimirTerr/Strata
+author: Casimir Terrence
+date: 2026-11-03
+tags:
+    - attack.t1562.008
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource:
+            - bedrock.amazonaws.com
+            - bedrock-agent.amazonaws.com
+        eventName:
+            - DeleteModelInvocationLoggingConfiguration
+    condition: selection
+falsepositives:
+    - 'Rare. Someone decommissioning Bedrock in a test account.'
+level: critical

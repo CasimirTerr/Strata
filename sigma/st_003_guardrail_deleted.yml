@@ -1,0 +1,26 @@
+title: 'Guardrail deleted'
+id: 6ac6a712-cdc1-5838-b722-c94854b1706a
+status: experimental
+description: 'Removes the safety filters that block prompt attacks and sensitive data leaks. (Strata ST-003)'
+references:
+    - https://thehackernews.com/2026/03/we-found-eight-attack-vectors-inside.html
+    - https://unit42.paloaltonetworks.com/exploit-of-aws-agentcore-iam-god-mode/
+    - https://github.com/CasimirTerr/Strata
+author: Casimir Terrence
+date: 2026-11-03
+tags:
+    - attack.t1562.001
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource:
+            - bedrock.amazonaws.com
+            - bedrock-agent.amazonaws.com
+        eventName:
+            - DeleteGuardrail
+    condition: selection
+falsepositives:
+    - 'Cleaning up an unused guardrail.'
+level: high

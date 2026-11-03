@@ -1,0 +1,14 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: generated-files
+        name: generated files match the code
+        entry: pytest tests/test_generated_files.py tests/test_rules.py::test_committed_sigma_rules_are_current -q
+        language: system
+        pass_filenames: false
+        files: ^(strata/rules\.py|examples/|scripts/)

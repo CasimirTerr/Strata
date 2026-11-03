@@ -1,0 +1,29 @@
+title: 'Knowledge base or data source changed'
+id: 4844cb47-6cc2-5415-9c8c-87696030c758
+status: experimental
+description: 'Pointing a knowledge base at new data can poison answers or expose connector credentials. (Strata ST-010)'
+references:
+    - https://thehackernews.com/2026/03/we-found-eight-attack-vectors-inside.html
+    - https://unit42.paloaltonetworks.com/exploit-of-aws-agentcore-iam-god-mode/
+    - https://github.com/CasimirTerr/Strata
+author: Casimir Terrence
+date: 2026-11-03
+tags:
+    - attack.t1565.001
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource:
+            - bedrock.amazonaws.com
+            - bedrock-agent.amazonaws.com
+        eventName:
+            - UpdateKnowledgeBase
+            - CreateDataSource
+            - UpdateDataSource
+            - DeleteDataSource
+    condition: selection
+falsepositives:
+    - 'Adding or reorganizing document sources.'
+level: medium

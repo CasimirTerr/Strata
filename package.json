@@ -1,0 +1,11 @@
+{
+  "name": "strata-web-checks",
+  "private": true,
+  "description": "Browser checks for docs/index.html (parity with the Python engine, replay, chat).",
+  "scripts": {
+    "check:web": "python tests/web/make_cases.py && node tests/web/check_web.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}

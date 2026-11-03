@@ -1,0 +1,28 @@
+title: 'Foundation model access turned on'
+id: 72dcf4af-0b6b-5432-9d4d-3162b460ea4f
+status: experimental
+description: 'Turning on model access is a common first step in LLMjacking, where attackers run models on your bill. (Strata ST-011)'
+references:
+    - https://thehackernews.com/2026/03/we-found-eight-attack-vectors-inside.html
+    - https://unit42.paloaltonetworks.com/exploit-of-aws-agentcore-iam-god-mode/
+    - https://github.com/CasimirTerr/Strata
+author: Casimir Terrence
+date: 2026-11-03
+tags:
+    - attack.t1496
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource:
+            - bedrock.amazonaws.com
+            - bedrock-agent.amazonaws.com
+        eventName:
+            - PutUseCaseForModelAccess
+            - PutFoundationModelEntitlement
+            - CreateFoundationModelAgreement
+    condition: selection
+falsepositives:
+    - 'A team starting to use a new model.'
+level: medium

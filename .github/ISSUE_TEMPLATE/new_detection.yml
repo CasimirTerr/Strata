@@ -1,0 +1,23 @@
+name: New detection idea
+description: An attack on Bedrock or AgentCore that Strata should catch.
+labels: [detection]
+body:
+  - type: textarea
+    id: attack
+    attributes:
+      label: The attack
+      description: What the attacker does and what they get out of it. Link the research if there is any.
+    validations:
+      required: true
+  - type: textarea
+    id: events
+    attributes:
+      label: CloudTrail events
+      description: Which eventSource and eventName values show it, and which fields matter.
+    validations:
+      required: true
+  - type: textarea
+    id: normal
+    attributes:
+      label: When it's normal
+      description: Legitimate activity that looks the same, so the rule can avoid it.

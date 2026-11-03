@@ -1,0 +1,26 @@
+title: 'Bedrock invocation logs sent somewhere new'
+id: a476e210-b882-570a-859f-674c91faf6aa
+status: experimental
+description: 'Can redirect every prompt and response to a bucket or log group the attacker controls. (Strata ST-002)'
+references:
+    - https://thehackernews.com/2026/03/we-found-eight-attack-vectors-inside.html
+    - https://unit42.paloaltonetworks.com/exploit-of-aws-agentcore-iam-god-mode/
+    - https://github.com/CasimirTerr/Strata
+author: Casimir Terrence
+date: 2026-11-03
+tags:
+    - attack.t1562.008
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource:
+            - bedrock.amazonaws.com
+            - bedrock-agent.amazonaws.com
+        eventName:
+            - PutModelInvocationLoggingConfiguration
+    condition: selection
+falsepositives:
+    - 'A planned move to a new log bucket. The first setup in a log set is reported as LOW.'
+level: high

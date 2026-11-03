@@ -1,0 +1,26 @@
+title: 'Agent instructions or settings changed'
+id: 495969aa-4438-5b99-ae54-22fd8b4bd752
+status: experimental
+description: 'Rewriting an agent''s instructions can make it leak data or follow attacker goals on every request. (Strata ST-005)'
+references:
+    - https://thehackernews.com/2026/03/we-found-eight-attack-vectors-inside.html
+    - https://unit42.paloaltonetworks.com/exploit-of-aws-agentcore-iam-god-mode/
+    - https://github.com/CasimirTerr/Strata
+author: Casimir Terrence
+date: 2026-11-03
+tags:
+    - attack.t1565.001
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource:
+            - bedrock.amazonaws.com
+            - bedrock-agent.amazonaws.com
+        eventName:
+            - UpdateAgent
+    condition: selection
+falsepositives:
+    - 'Prompt engineers improving the agent. Compare against your source-controlled instructions.'
+level: medium

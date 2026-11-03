@@ -1,0 +1,7 @@
+{
+  "agent_lambdas": ["order-lookup"],
+  "allow": [
+    {"principal": "deploy-pipeline", "rules": ["ST-007"]},
+    {"principal": "PromptEngineer", "rules": ["ST-009"]}
+  ]
+}

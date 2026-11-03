@@ -1,0 +1,26 @@
+title: 'Code behind an agent tool changed'
+id: 47619e1a-258e-5f2c-8baf-4b26b6d84b15
+status: experimental
+description: 'Replacing the Lambda code or layers behind an action group runs attacker logic on every agent call. (Strata ST-007)'
+references:
+    - https://thehackernews.com/2026/03/we-found-eight-attack-vectors-inside.html
+    - https://unit42.paloaltonetworks.com/exploit-of-aws-agentcore-iam-god-mode/
+    - https://github.com/CasimirTerr/Strata
+author: Casimir Terrence
+date: 2026-11-03
+tags:
+    - attack.t1648
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource:
+            - lambda.amazonaws.com
+        eventName:
+            - UpdateFunctionCode20150331v2
+            - UpdateFunctionConfiguration20150331v2
+    condition: selection
+falsepositives:
+    - 'Your deploy pipeline. Allowlist its role for this rule so only other identities alert.'
+level: high

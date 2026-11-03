@@ -1,0 +1,9 @@
+cloudtrail_bucket = "my-org-cloudtrail-logs"
+cloudtrail_prefix = "AWSLogs/111122223333/CloudTrail/"
+regions           = ["us-east-1", "us-west-2"]
+alert_email       = "security@example.com"
+min_severity      = "HIGH"
+
+strata_config = <<-JSON
+  {"allow": [{"principal": "deploy-pipeline", "rules": ["ST-007"]}]}
+JSON

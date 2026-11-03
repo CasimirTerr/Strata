@@ -1,0 +1,26 @@
+title: 'Guardrail changed'
+id: 27b806e1-3581-5c12-b553-0d81dbf4e2d2
+status: experimental
+description: 'Guardrail edits can lower filter strength, drop prompt-attack detection, or put a phishing link in the block message. (Strata ST-004)'
+references:
+    - https://thehackernews.com/2026/03/we-found-eight-attack-vectors-inside.html
+    - https://unit42.paloaltonetworks.com/exploit-of-aws-agentcore-iam-god-mode/
+    - https://github.com/CasimirTerr/Strata
+author: Casimir Terrence
+date: 2026-11-03
+tags:
+    - attack.t1562.001
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource:
+            - bedrock.amazonaws.com
+            - bedrock-agent.amazonaws.com
+        eventName:
+            - UpdateGuardrail
+    condition: selection
+falsepositives:
+    - 'Normal tuning. Raised to HIGH only when the prompt-attack filter is gone, a filter is set to NONE, or the block message gains a link.'
+level: medium

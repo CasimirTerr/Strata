@@ -1,0 +1,26 @@
+title: 'Invocation logging settings checked'
+id: 23e2b8a1-9c64-5e38-a5e5-7328ca4ab68d
+status: experimental
+description: 'Attackers check whether prompts are being logged before they start using stolen access. (Strata ST-012)'
+references:
+    - https://thehackernews.com/2026/03/we-found-eight-attack-vectors-inside.html
+    - https://unit42.paloaltonetworks.com/exploit-of-aws-agentcore-iam-god-mode/
+    - https://github.com/CasimirTerr/Strata
+author: Casimir Terrence
+date: 2026-11-03
+tags:
+    - attack.t1526
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection:
+        eventSource:
+            - bedrock.amazonaws.com
+            - bedrock-agent.amazonaws.com
+        eventName:
+            - GetModelInvocationLoggingConfiguration
+    condition: selection
+falsepositives:
+    - 'Security tools and auditors. On its own it means little; it matters inside a chain.'
+level: low
