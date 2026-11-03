@@ -42,7 +42,7 @@ jobs:
         run: |
           strata scan examples/normal-day --fail-on critical
           strata scan examples/attack-night -f md -o attack-report.md
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: matrix.python-version == '3.12'
         with:
           name: sample-attack-report
@@ -84,7 +84,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python scripts/build_lambda.py
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: strata-lambda
           path: build/strata-lambda.zip
